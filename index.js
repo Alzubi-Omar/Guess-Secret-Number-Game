@@ -2,13 +2,13 @@ let secretNumber = Math.trunc(Math.random() * 30) + 1;
 let score = 20;
 let highScore = 0;
 
-const displayMessage = message =>
-  (document.querySelector('.message').textContent = message);
+const displayMessage = (message) =>
+  (document.querySelector(".message").textContent = message);
 
 const updateScoreDisplay = () =>
-  (document.querySelector('.score').textContent = score);
+  (document.querySelector(".score").textContent = score);
 
-const checkButton = document.querySelector('.check');
+const checkButton = document.querySelector(".check");
 // Function to disable the button
 function disableButton() {
   checkButton.disabled = true;
@@ -26,60 +26,59 @@ const resetGame = () => {
   enableButton();
   displayMessage();
   updateScoreDisplay();
-  document.querySelector('.answer').classList.add('hidden');
-  document.querySelector('.correct').classList.add('hidden');
-  document.querySelector('.guess').value = '';
-  document.querySelector('body').style.backgroundColor = '#3f3d3d';
-  document.querySelector('.answer').style.width = '15rem';
+  document.querySelector(".answer").classList.add("hidden");
+  document.querySelector(".correct").classList.add("hidden");
+  document.querySelector(".guess").value = "";
+  document.querySelector("body").style.backgroundColor = "#3f3d3d";
+  document.querySelector(".answer").style.width = "15rem";
 };
 
 //
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   let currentYear = new Date().getFullYear();
-  document.getElementById('currentYear').textContent = '© ' + currentYear;
+  document.getElementById("currentYear").textContent = "© " + currentYear;
 });
 
-checkButton.addEventListener('click', () => {
-  const guess = Number(document.querySelector('.guess').value);
+checkButton.addEventListener("click", () => {
+  const guess = Number(document.querySelector(".guess").value);
 
   // When there is no input
   if (!guess) {
-    displayMessage('No Number!⛔');
+    displayMessage("No Number!⛔");
     return;
 
     // When player wins
   } else if (guess === secretNumber) {
-    displayMessage('Correct Number!🥳🥳');
+    displayMessage("Correct Number!🥳🥳");
 
-    document.querySelector('.message').classList.add('active');
-
-    document.querySelector('.answer').classList.remove('hidden');
-    document.querySelector('.answer').textContent = secretNumber;
-    document.querySelector('body').style.backgroundColor = 'Green';
-    document.querySelector('.answer').style.width = '30rem';
+    document.querySelector(".message").classList.add("active");
+    document.querySelector(".answer").classList.remove("hidden");
+    document.querySelector(".answer").textContent = secretNumber;
+    document.querySelector("body").style.backgroundColor = "Green";
+    document.querySelector(".answer").style.width = "15rem";
 
     if (score > highScore) {
       highScore = score;
-      document.querySelector('.highscore').textContent = highScore;
+      document.querySelector(".highscore").textContent = highScore;
     }
 
     // When guess is wrong
   } else {
     if (score > 1) {
-      displayMessage(guess > secretNumber ? 'Too High!📈' : 'Too Low!📉');
+      displayMessage(guess > secretNumber ? "Too High!📈" : "Too Low!📉");
       score--;
       updateScoreDisplay();
     } else {
-      displayMessage('You Lost the Game!💥');
+      displayMessage("You Lost the Game!💥");
       score = 0;
       updateScoreDisplay();
-      document.querySelector('body').style.background = 'red';
+      document.querySelector("body").style.background = "red";
 
       disableButton();
-      document.querySelector('.correct').classList.remove('hidden');
-      document.querySelector('.guess').value = secretNumber;
+      document.querySelector(".correct").classList.remove("hidden");
+      document.querySelector(".guess").value = secretNumber;
     }
   }
 });
 
-document.querySelector('.again').addEventListener('click', resetGame);
+document.querySelector(".again").addEventListener("click", resetGame);
